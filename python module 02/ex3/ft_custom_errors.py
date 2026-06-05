@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 class GardenError(Exception):
     def __init__(self, message: str = "A garden problem occurred") -> None:
