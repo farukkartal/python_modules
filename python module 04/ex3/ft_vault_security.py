@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 def secure_archive(file_name: str, action: str = "read",
-                   content: str = "") -> tuple:
+                   content: str = "") -> tuple[bool, str]:
     try:
         if action == "read":
             with open(file_name, "r") as file:

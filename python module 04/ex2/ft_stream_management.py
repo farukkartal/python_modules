@@ -46,7 +46,7 @@ if __name__ == "__main__":
                     print(f"[STDERR] Error opening file'{new_file_name}': "
                           f"[Errno 13] Permission denied:'{new_file_name}'",
                           file=sys.stderr)
-                    print("Data not saved")
+                    print("Data not saved.")
 
         except FileNotFoundError:
             print(f"[STDERR] Error opening file'{file_name}': "
