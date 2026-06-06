@@ -30,10 +30,14 @@ if __name__ == "__main__":
                 print("Not saving data.")
             else:
                 print(f"Saving data to '{new_file_name}'")
-                new_file = open(new_file_name, "w")
-                new_file.write(new_content)
-                new_file.close()
-                print(f"Data saved in file '{new_file_name}'.")
+                try:
+                    new_file = open(new_file_name, "w")
+                    new_file.write(new_content)
+                    new_file.close()
+                    print(f"Data saved in file '{new_file_name}'.")
+                except PermissionError:
+                    print(f"Error opening file '{new_file_name}': "
+                          f"[Errno 13] Permission denied: '{new_file_name}'")
 
         except FileNotFoundError:
             print(f"Error opening file '{file_name}': "
