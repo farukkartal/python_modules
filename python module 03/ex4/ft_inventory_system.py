@@ -3,7 +3,7 @@
 import sys
 
 
-def parse_inventory() -> dict:
+def parse_inventory() -> dict[str, int]:
     inventory = {}
     for arg in sys.argv[1:]:
         pieces = arg.split(":")
@@ -22,7 +22,7 @@ def parse_inventory() -> dict:
     return (inventory)
 
 
-def display_stats(inv: dict) -> None:
+def display_stats(inv: dict[str, int]) -> None:
     item_list = list(inv.keys())
     print(f"Item list: {item_list}")
     kind = len(inv)

@@ -11,7 +11,7 @@ ALL_ACH = [
 ]
 
 
-def gen_player_achievements() -> set:
+def gen_player_achievements() -> set[str]:
 
     x = random.randint(5, 10)
     selected_ach = random.sample(ALL_ACH, x)
