@@ -28,6 +28,10 @@ def display_stats(inv: dict[str, int]) -> None:
     kind = len(inv)
     total = sum(inv.values())
     print(f"Total quantity of the {kind} items: {total}")
+    if kind == 0:
+        inv["magic_item"] = 1
+        print(f"Updated inventory: {inv}")
+        return
     most_item = item_list[0]
     least_item = item_list[0]
     most_quantity = inv[most_item]
