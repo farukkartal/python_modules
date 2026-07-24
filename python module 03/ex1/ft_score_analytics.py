@@ -17,7 +17,7 @@ def analyze_score() -> None:
     for x in sys.argv[1:]:
         try:
             score = argument_to_int(x)
-            approved_scores.append(score)
+            approved_scores = approved_scores + [score]
         except ValueError:
             print(f"Invalid parameter: '{x}'")
     if len(approved_scores) == 0:
