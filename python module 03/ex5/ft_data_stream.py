@@ -18,24 +18,29 @@ def consume_event(
 ) -> typing.Generator[typing.Tuple[str, str], None, None]:
     while len(event_list) > 0:
         chosen = random.choice(event_list)
-        event_list.remove(chosen)
+        index = 0
+        for i in range(len(event_list)):
+            if event_list[i] == chosen:
+                index = i
+                break
+        event_list[:] = event_list[:index] + event_list[index+1:]
         yield chosen
 
 
-if __name__ == "__main__":
+def run_events() -> None:
     print("=== Game Data Stream Processor ===")
     event_maker = gen_event()
-
     for index in range(1000):
         p_name, p_move = next(event_maker)
         print(f"Event {index}: Player {p_name} did action {p_move}")
     batch_of_ten: typing.List[typing.Tuple[str, str]] = []
-
     for _ in range(10):
-        batch_of_ten.append(next(event_maker))
-
+        batch_of_ten = batch_of_ten + [next(event_maker)]
     print(f"Built list of 10 events: {batch_of_ten}")
-
     for current_event in consume_event(batch_of_ten):
         print(f"Got event from list: {current_event}")
         print(f"Remains in list: {batch_of_ten}")
+
+
+if __name__ == "__main__":
+    run_events()
