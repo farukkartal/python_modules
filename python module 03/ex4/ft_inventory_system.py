@@ -4,7 +4,7 @@ import sys
 
 
 def parse_inventory() -> dict[str, int]:
-    inventory = {}
+    inventory: dict[str, int] = {}
     for arg in sys.argv[1:]:
         pieces = arg.split(":")
         if len(pieces) != 2:
@@ -19,17 +19,17 @@ def parse_inventory() -> dict[str, int]:
         except ValueError as e:
             print(f"Quantity error for '{pieces[0]}': {e}")
             continue
-    return (inventory)
+    return inventory
 
 
 def display_stats(inv: dict[str, int]) -> None:
-    item_list = list(inv.keys())
+    item_list = list(dict.keys(inv))
     print(f"Item list: {item_list}")
     kind = len(inv)
-    total = sum(inv.values())
+    total = sum(dict.values(inv))
     print(f"Total quantity of the {kind} items: {total}")
     if kind == 0:
-        inv["magic_item"] = 1
+        dict.update(inv, {"magic_item": 1})
         print(f"Updated inventory: {inv}")
         return
     most_item = item_list[0]
@@ -49,12 +49,16 @@ def display_stats(inv: dict[str, int]) -> None:
             least_item = item
     print(f"Item most abundant: {most_item} with quantity {most_quantity}")
     print(f"Item least abundant: {least_item} with quantity {least_quantity}")
-    inv["magic_item"] = 1
+    dict.update(inv, {"magic_item": 1})
     print(f"Updated inventory: {inv}")
 
 
-if __name__ == "__main__":
+def run_inventory_system() -> None:
     print("=== Inventory System Analysis ===")
     inv = parse_inventory()
     print(f"Got inventory: {inv}")
     display_stats(inv)
+
+
+if __name__ == "__main__":
+    run_inventory_system()
