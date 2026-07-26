@@ -13,7 +13,7 @@ def analyze_score() -> None:
         print("No scores provided. Usage: python3 ", end="")
         print("ft_score_analytics.py <score1> <score2> ...")
         return
-    approved_scores = []
+    approved_scores: list[int] = []
     for x in sys.argv[1:]:
         try:
             score = argument_to_int(x)
