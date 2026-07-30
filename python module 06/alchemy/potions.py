@@ -5,7 +5,7 @@ from alchemy.elements import create_earth
 
 
 def healing_potion() -> str:
-    return (f"Healing potion brewed with"
+    return (f"Healing potion brewed with "
             f"'{create_earth()}' and '{create_air()}'")
 
 
