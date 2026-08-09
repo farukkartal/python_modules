@@ -1,21 +1,26 @@
 import abc
 import typing
 
+
 class DataProcessor(abc.ABC):
     def __init__(self):
         self.data = []
         self.rank = 0
+
     @abc.abstractmethod
     def validate(self, data: typing.Any) -> bool:
         pass
+
     @abc.abstractmethod
-    def ingest(self, data: typing.Any) ->None:
+    def ingest(self, data: typing.Any) -> None:
         pass
+
     def output(self) -> tuple[int, str]:
         first_data = self.data.pop(0)
         current_rank = self.rank
         self.rank = self.rank + 1
         return (current_rank, first_data)
+
 
 class NumericProcessor(DataProcessor):
     def validate(self, data: typing.Any) -> bool:
@@ -29,15 +34,19 @@ class NumericProcessor(DataProcessor):
                     return False
             return True
         return False
-    
-    def ingest(self, data: int | float | list[int | float]) -> None:
-        if self.validate(data) == False:
+
+    def ingest(
+        self,
+        data: typing.Union[int, float, list[typing.Union[int, float]]]
+    ) -> None:
+        if not self.validate(data):
             raise Exception("Improper numeric data")
-        if isinstance (data,list):
+        if isinstance(data, list):
             for i in data:
                 self.data.append(str(i))
         else:
             self.data.append(str(data))
+
 
 class TextProcessor(DataProcessor):
     def validate(self, data: typing.Any) -> bool:
@@ -48,17 +57,17 @@ class TextProcessor(DataProcessor):
                 if not isinstance(i, str):
                     return False
             return True
-            
         return False
 
-    def ingest(self, data: str | list[str]) -> None:
-        if self.validate(data) == False:
+    def ingest(self, data: typing.Union[str, list[str]]) -> None:
+        if not self.validate(data):
             raise Exception("Improper text data")
         if isinstance(data, list):
             for i in data:
                 self.data.append(i)
         else:
             self.data.append(data)
+
 
 class LogProcessor(DataProcessor):
     def validate(self, data: typing.Any) -> bool:
@@ -77,17 +86,22 @@ class LogProcessor(DataProcessor):
             return True
         return False
 
-    def ingest(self, data: dict[str, str] | list[dict[str, str]]) -> None:
-        if self.validate(data) == False:
+    def ingest(
+        self,
+        data: typing.Union[dict[str, str], list[dict[str, str]]]
+    ) -> None:
+        if not self.validate(data):
             raise Exception("Improper log data")
-            
         if isinstance(data, list):
             for i in data:
-                log_text = f"{i['log_level'].strip()}: {i['log_message'].strip()}"
-                self.data.append(log_text)
+                lvl = i['log_level'].strip()
+                msg = i['log_message'].strip()
+                self.data.append(f"{lvl}: {msg}")
         else:
-            log_text = f"{data['log_level'].strip()}: {data['log_message'].strip()}"
-            self.data.append(log_text)
+            lvl = data['log_level'].strip()
+            msg = data['log_message'].strip()
+            self.data.append(f"{lvl}: {msg}")
+
 
 def test_numeric_processor():
     print("Testing Numeric Processor...")
@@ -102,7 +116,6 @@ def test_numeric_processor():
     data = [1, 2, 3, 4, 5]
     print(f"Processing data: {data}")
     num_proc.ingest(data)
-    
     print("Extracting 3 values...")
     for _ in range(3):
         rank, val = num_proc.output()
@@ -112,13 +125,10 @@ def test_numeric_processor():
 def test_text_processor():
     print("\nTesting Text Processor...")
     text_proc = TextProcessor()
-    
     print(f"Trying to validate input'42': {text_proc.validate(42)}")
-    
     data = ['Hello', 'Nexus', 'World']
     print(f"Processing data: {data}")
     text_proc.ingest(data)
-    
     print("Extracting 1 value...")
     rank, val = text_proc.output()
     print(f"Text value {rank}: {val}")
@@ -127,18 +137,16 @@ def test_text_processor():
 def test_log_processor():
     print("\nTesting Log Processor...")
     log_proc = LogProcessor()
-    
     print(f"Trying to validate input'Hello': {log_proc.validate('Hello')}")
-    
-    data = [{'log_level': 'NOTICE', 'log_message': 'Connection to server'}, 
+    data = [{'log_level': 'NOTICE', 'log_message': 'Connection to server'},
             {'log_level': 'ERROR ', 'log_message': 'Unauthorized access!!'}]
     print(f"Processing data: {data}")
     log_proc.ingest(data)
-    
     print("Extracting 2 values...")
     for _ in range(2):
         rank, val = log_proc.output()
         print(f"Log entry {rank}: {val}")
+
 
 if __name__ == "__main__":
     print("=== Code Nexus - Data Processor ===\n")
