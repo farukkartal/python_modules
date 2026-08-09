@@ -94,13 +94,13 @@ class LogProcessor(DataProcessor):
             raise Exception("Improper log data")
         if isinstance(data, list):
             for i in data:
-                log_text = f"{i['log_level'].strip()}:"
-                f"{i['log_message'].strip()}"
-                self.data.append(log_text)
+                lvl = i['log_level'].strip()
+                msg = i['log_message'].strip()
+                self.data.append(f"{lvl}: {msg}")
         else:
-            log_text = f"{data['log_level'].strip()}:"
-            f"{data['log_message'].strip()}"
-            self.data.append(log_text)
+            lvl = data['log_level'].strip()
+            msg = data['log_message'].strip()
+            self.data.append(f"{lvl}: {msg}")
 
 
 class DataStream:
