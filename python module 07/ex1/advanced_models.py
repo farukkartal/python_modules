@@ -1,10 +1,12 @@
 import abc
 from ex0.abstract_models import Creature, CreatureFactory
 
+
 class HealCapability(abc.ABC):
     @abc.abstractmethod
     def heal(self) -> str:
         pass
+
 
 class TransformCapability(abc.ABC):
     @abc.abstractmethod
@@ -15,6 +17,7 @@ class TransformCapability(abc.ABC):
     def revert(self) -> str:
         pass
 
+
 class Sproutling(Creature, HealCapability):
     def __init__(self) -> None:
         super().__init__("Sproutling", "Grass")
@@ -23,7 +26,8 @@ class Sproutling(Creature, HealCapability):
         return ("Sproutling uses Vine Whip!")
 
     def heal(self) -> str:
-        return("Sproutling heals itself for a small amount")
+        return ("Sproutling heals itself for a small amount")
+
 
 class Bloomelle(Creature, HealCapability):
     def __init__(self) -> None:
@@ -34,6 +38,7 @@ class Bloomelle(Creature, HealCapability):
 
     def heal(self) -> str:
         return ("Bloomelle heals itself and others for a large amount")
+
 
 class Shiftling(Creature, TransformCapability):
     def __init__(self) -> None:
@@ -49,10 +54,11 @@ class Shiftling(Creature, TransformCapability):
         return ("Shiftling returns to normal.")
 
     def attack(self) -> str:
-        if self.is_transformed == True:
+        if self.is_transformed:
             return ("Shiftling performs a boosted strike!")
         else:
-            return("Shiftling attacks normally.")
+            return ("Shiftling attacks normally.")
+
 
 class Morphagon(Creature, TransformCapability):
     def __init__(self) -> None:
@@ -63,25 +69,23 @@ class Morphagon(Creature, TransformCapability):
         self.is_transformed = True
         return ("Morphagon morphs into a dragonic battle form!")
 
-
     def revert(self) -> str:
         self.is_transformed = False
         return ("Morphagon stabilizes its form.")
 
-
     def attack(self) -> str:
-        if self.is_transformed == True:
+        if self.is_transformed:
             return ("Morphagon unleashes a devastating morph strike!")
-        return("Morphagon attacks normally.")
+        return ("Morphagon attacks normally.")
 
 
 class HealingCreatureFactory(CreatureFactory):
     def create_base(self) -> Sproutling:
         return Sproutling()
 
-
     def create_evolved(self) -> Bloomelle:
         return Bloomelle()
+
 
 class TransformCreatureFactory(CreatureFactory):
     def create_base(self) -> Shiftling:

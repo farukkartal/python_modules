@@ -1,5 +1,6 @@
 from ex1 import HealingCreatureFactory, TransformCreatureFactory
 
+
 def test_healing(factory: HealingCreatureFactory) -> None:
     print("Testing Creature with healing capability")
     print(" base:")
@@ -12,6 +13,7 @@ def test_healing(factory: HealingCreatureFactory) -> None:
     print(f"{evolved.describe()}")
     print(f"{evolved.attack()}")
     print(f"{evolved.heal()}")
+
 
 def test_transforming(factory: TransformCreatureFactory) -> None:
     print("\nTesting Creature with transform capability")
@@ -29,6 +31,7 @@ def test_transforming(factory: TransformCreatureFactory) -> None:
     print(evolved.transform())
     print(evolved.attack())
     print(evolved.revert())
+
 
 if __name__ == "__main__":
     heal = HealingCreatureFactory()

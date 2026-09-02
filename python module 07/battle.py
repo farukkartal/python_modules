@@ -1,5 +1,6 @@
 from ex0 import AquaFactory, FlameFactory, CreatureFactory
 
+
 def test_factory(factory: CreatureFactory) -> None:
     print("Testing factory")
     base = factory.create_base()
@@ -8,6 +9,7 @@ def test_factory(factory: CreatureFactory) -> None:
     evolved = factory.create_evolved()
     print(f"{evolved.describe()}")
     print(f"{evolved.attack()}")
+
 
 def start_fight(factory1: CreatureFactory, factory2: CreatureFactory) -> None:
     fighter1 = factory1.create_base()

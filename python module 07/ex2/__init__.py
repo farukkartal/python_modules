@@ -1,4 +1,10 @@
-from .tactics import BattleStrategy, NormalStrategy, AggressiveStrategy, DefensiveStrategy, TacticError
+from .tactics import (
+    BattleStrategy,
+    NormalStrategy,
+    AggressiveStrategy,
+    DefensiveStrategy,
+    TacticError
+)
 
 __all__ = [
     "BattleStrategy",

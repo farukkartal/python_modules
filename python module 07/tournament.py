@@ -1,6 +1,13 @@
 from ex0 import FlameFactory, AquaFactory, CreatureFactory
 from ex1 import HealingCreatureFactory, TransformCreatureFactory
-from ex2 import BattleStrategy, NormalStrategy, AggressiveStrategy, DefensiveStrategy, TacticError
+from ex2 import (
+    BattleStrategy,
+    NormalStrategy,
+    AggressiveStrategy,
+    DefensiveStrategy,
+    TacticError
+)
+
 
 def battle(opponents: list[tuple[CreatureFactory, BattleStrategy]]) -> None:
     print("*** Tournament ***")
@@ -22,6 +29,7 @@ def battle(opponents: list[tuple[CreatureFactory, BattleStrategy]]) -> None:
             except TacticError as error:
                 print(f"Battle error, aborting tournament: {error}")
                 return
+
 
 if __name__ == "__main__":
     flame = FlameFactory()
