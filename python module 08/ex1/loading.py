@@ -1,6 +1,7 @@
 import sys
 import importlib
 
+
 def check() -> None:
     print("LOADING STATUS: Loading programs...")
     print("Checking dependencies:")
@@ -27,10 +28,10 @@ def check() -> None:
         print("$> poetry run python loading.py")
         sys.exit(1)
 
+
 def show_versions() -> None:
     print("\n--- Installed Package Versions ---")
     package_list = ["pandas", "numpy", "matplotlib"]
-    
     for p in package_list:
         try:
             lib = importlib.import_module(p)
@@ -44,6 +45,7 @@ def show_versions() -> None:
     print("Poetry : Uses pyproject.toml and poetry.lock. Provides")
     print("         strict dependency resolution and venv management.")
 
+
 def run_simulation() -> None:
     import numpy as np
     import pandas as pd
@@ -56,8 +58,20 @@ def run_simulation() -> None:
     matrix_df["smooth_trend"] = matrix_df["wave"].rolling(window=50).mean()
     print("Generating visualization...")
     fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(matrix_df.index, matrix_df["wave"], label="Matrix Signal", color="green", alpha=0.5)
-    ax.plot(matrix_df.index, matrix_df["smooth_trend"], label="Trend", color="lime", linewidth=2)
+    ax.plot(
+        matrix_df.index,
+        matrix_df["wave"],
+        label="Matrix Signal",
+        color="green",
+        alpha=0.5
+    )
+    ax.plot(
+        matrix_df.index,
+        matrix_df["smooth_trend"],
+        label="Trend",
+        color="lime",
+        linewidth=2
+    )
     ax.set_title("Matrix Data Analysis")
     ax.set_xlabel("Time")
     ax.set_ylabel("Signal Strength")
@@ -66,6 +80,7 @@ def run_simulation() -> None:
     fig.savefig("matrix_analysis.png")
     print("Analysis complete!")
     print("Results saved to: matrix_analysis.png")
+
 
 if __name__ == "__main__":
     check()

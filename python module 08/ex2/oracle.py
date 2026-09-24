@@ -4,8 +4,10 @@ import sys
 try:
     from dotenv import load_dotenv
 except ImportError:
-    print("Error: python-dotenv is missing. Run pip install -r requirements.txt")
+    print("Error: python-dotenv is missing. "
+          "Run pip install -r requirements.txt")
     sys.exit(1)
+
 
 def read_config() -> None:
     load_dotenv()
@@ -20,7 +22,7 @@ def read_config() -> None:
     missing_keys = []
     for key in keys:
         if not os.environ.get(key):
-            missing_keys.append(key) 
+            missing_keys.append(key)
     if len(missing_keys) > 0:
         print("\n[ERROR] The Oracle cannot proceed. Missing configurations:")
         for missing in missing_keys:
@@ -43,11 +45,12 @@ def read_config() -> None:
         print("Zion Network: Online")
     else:
         print("Zion Network: Offline")
-    print("\nEnvironment security check:") 
+    print("\nEnvironment security check:")
     print("[OK] No hardcoded secrets detected")
     print("[OK] .env file properly configured")
     print("[OK] Production overrides available")
     print("\nThe Oracle sees all configurations.")
 
+
 if __name__ == "__main__":
-    read_config() 
+    read_config()
