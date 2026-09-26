@@ -52,11 +52,11 @@ class SpaceMission(BaseModel):
                 if member.years_experience >= 5:
                     experienced_count += 1
             if experienced_count < (len(self.crew) / 2):
-                if experienced_count < (len(self.crew) / 2):
-                    raise ValueError(
-                        "Long missions (> 365 days) need "
-                        "50% experienced crew"
-                    )
+                raise ValueError(
+                    "Long missions (> 365 days) need "
+                    "50% experienced crew"
+                )
+
         for member in self.crew:
             if not member.is_active:
                 raise ValueError("All crew members must be active")
@@ -66,7 +66,6 @@ class SpaceMission(BaseModel):
 def test():
     print("Space Mission Crew Validation")
     print("=========================================")
-
     try:
         c1 = CrewMember(
             member_id="C001", name="Sarah Connor", rank="commander",
@@ -80,7 +79,6 @@ def test():
             member_id="C003", name="Alice Johnson", rank="officer",
             age=28, specialization="Engineering", years_experience=3
         )
-
         valid_mission = SpaceMission(
             mission_id="M2024_MARS",
             mission_name="Mars Colony Establishment",
@@ -99,11 +97,10 @@ def test():
         print(f"Crew size: {len(valid_mission.crew)}")
         print("Crew members:")
         for member in valid_mission.crew:
-            for member in valid_mission.crew:
-                print(
-                    f"- {member.name} ({member.rank.value}) "
-                    f"- {member.specialization}"
-                )
+            print(
+                f"- {member.name} ({member.rank.value}) "
+                f"- {member.specialization}"
+            )
         print()
     except ValidationError as e:
         print(e)
@@ -118,6 +115,7 @@ def test():
             member_id="C005", name="Charlie", rank="lieutenant",
             age=32, specialization="Medical", years_experience=6
         )
+
         SpaceMission(
             mission_id="M2025_MOON",
             mission_name="Moon Base Alpha",
